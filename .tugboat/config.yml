@@ -1,7 +1,14 @@
 services:
+  wp-proxy:
+    default: true
+    image: q0rban/wp-proxy
+    depends: php
+    aliases:
+      - '2020'
+      - '2021'
   php:
     image: tugboatqa/php:8.1-apache
-    default: true
+    checkout: true
     depends: mysql
     commands:
       init:
@@ -24,43 +31,46 @@ services:
         - ln -snf "${TUGBOAT_ROOT}/build" "${DOCROOT}"
 
       update:
-        # Copy the uploads directory from an external server. The public
-        # SSH key found in the Tugboat Repository configuration must be
-        # copied to the external server in order to use rsync over SSH.
-#        - mkdir -p "${DOCROOT}/wp-content/uploads" || /bin/true
-#        - rsync -av --delete user@example.com:/path/to/wp-content/uploads/ "${DOCROOT}/wp-content/uploads/"
-#        - chgrp -R www-data "${DOCROOT}/wp-content/uploads"
-#        - find "${DOCROOT}/wp-content/uploads" -type d -exec chmod 2775 {} \;
-#        - find "${DOCROOT}/wp-content/uploads" -type f -exec chmod 0664 {} \;
         - npm install
         - npm run build
+        - rm -f $DOCROOT/wp-config.php
         - wp --allow-root --path=$DOCROOT config create
             --dbhost=mysql
             --dbname=tugboat
             --dbuser=tugboat
             --dbpass=tugboat
-        - wp --allow-root --path=$DOCROOT core install
+        - wp --allow-root --path=$DOCROOT core multisite-install
+            --subdomains
             --url=example.com
             --title="WordPress Core"
             --admin_user=admin
             --admin_password=admin
             --admin_email=admin@example.com
+
         - wp --allow-root --path=$DOCROOT plugin install wordpress-importer --activate
         - curl -O https://raw.githubusercontent.com/WPTT/theme-test-data/master/theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --authors=create --url=example.com import theme-preview.xml
+
+        - wp --path=$DOCROOT --allow-root site create --slug=2020 --title="Twenty Twenty"
+        - wp --allow-root --path=$DOCROOT --url=2020.example.com plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2020.example.com --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2020.example.com theme install twentytwenty --activate
+
+        - wp --path=$DOCROOT --allow-root site create --slug=2021 --title="Twenty Twenty-One"
+        - wp --allow-root --path=$DOCROOT --url=2021.example.com plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2021.example.com --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2021.example.com theme install twentytwentyone --activate
+
         - apt-get clean
         - rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
       build:
         - npm install
         - npm run build
-        - |
-          if [ "x${TUGBOAT_BASE_PREVIEW}" != "x" ]; then
-              wp --allow-root --path="${DOCROOT}" search-replace "${TUGBOAT_BASE_PREVIEW_URL_HOST}" "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
-          else
-              wp --allow-root --path="${DOCROOT}" search-replace 'example.com' "${TUGBOAT_SERVICE_URL_HOST}" --skip-columns=guid
-          fi
 
   mysql:
     image: tugboatqa/mysql:5
+    commands:
+      update:
+        - mysql -e "DROP DATABASE IF EXISTS tugboat; CREATE DATABASE tugboat;"
 
