@@ -29,6 +29,7 @@ services:
 
         - mkdir -p "${TUGBOAT_ROOT}/build"
         - ln -snf "${TUGBOAT_ROOT}/build" "${DOCROOT}"
+        - ln -snf "${TUGBOAT_ROOT}/.tugboat/.htaccess" "${DOCROOT}/.htaccess"
 
       update:
         - npm install
