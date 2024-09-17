@@ -82,6 +82,9 @@ services:
         - npm run build
         - test -z "${TUGBOAT_BASE_PREVIEW}" || wp search-replace "${TUGBOAT_BASE_PREVIEW_URL_HOST}" "${TUGBOAT_DEFAULT_SERVICE_URL_HOST}"
 
+      clone:
+        - wp search-replace "${TUGBOAT_BASE_PREVIEW_URL_HOST}" "${TUGBOAT_DEFAULT_SERVICE_URL_HOST}"
+
   mysql:
     image: tugboatqa/mysql:5
     commands:
