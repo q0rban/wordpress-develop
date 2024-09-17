@@ -21,7 +21,7 @@ services:
         - a2enmod rewrite headers
 
         - docker-php-ext-install mysqli exif zip opcache
-        - pecl install imagick-beta -y
+        - pecl install imagick -y
         - docker-php-ext-enable imagick
 
         - mkdir -p "${TUGBOAT_ROOT}/build"
