@@ -43,6 +43,7 @@ services:
         #- wp --allow-root --path=$DOCROOT config set --raw DOMAIN_CURRENT_SITE "htmlentities( \$_SERVER['HTTP_HOST'] ?? 'example.com' )"
 
         - wp --allow-root --path=$DOCROOT --url=$TUGBOAT_DEFAULT_SERVICE_URL_HOST --title="WordPress Test Site" --admin_user=admin --admin_email=admin@example.com core install
+        - wp --allow-root --path=$DOCROOT user update admin --user_pass=admin
         - wp --allow-root --path=$DOCROOT plugin install wordpress-importer --activate
         - curl -O https://raw.githubusercontent.com/WPTT/theme-test-data/master/theme-preview.xml
         #- wp --allow-root --path=$DOCROOT --authors=create --url=$TUGBOAT_DEFAULT_SERVICE_URL_HOST import theme-preview.xml
