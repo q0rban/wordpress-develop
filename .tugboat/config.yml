@@ -57,7 +57,7 @@ services:
         - wp --allow-root --path=$DOCROOT config set COOKIE_DOMAIN ""
         - wp --allow-root --path=$DOCROOT config set COOKIEPATH ""
         - wp --allow-root --path=$DOCROOT config set SITECOOKIEPATH ""
-        - wp --allow-root --path=$DOCROOT config set --raw DOMAIN_CURRENT_SITE "htmlentities( \$_SERVER['HTTP_HOST'] )"
+        - wp --allow-root --path=$DOCROOT config set --raw DOMAIN_CURRENT_SITE "htmlentities( \$_SERVER['HTTP_HOST'] ?? 'example.com' )"
 
         - wp --allow-root --path=$DOCROOT plugin install wordpress-importer --activate
         - curl -O https://raw.githubusercontent.com/WPTT/theme-test-data/master/theme-preview.xml
