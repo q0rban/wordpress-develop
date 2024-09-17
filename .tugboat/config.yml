@@ -6,16 +6,17 @@ services:
     aliases:
       - '2020'
       - '2021'
+      - '2022'
+      - '2023'
+      - '2024'
   php:
-    image: tugboatqa/php:8.1-apache
+    image: tugboatqa/php:8.3-apache
     checkout: true
     depends: mysql
     commands:
       init:
         - apt-get update
-
-        - curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
-        - apt-get install -y rsync libzip-dev nodejs libmagickwand-dev
+        - apt-get install -y rsync libzip-dev libmagickwand-dev
 
         - a2enmod rewrite headers
 
@@ -23,15 +24,19 @@ services:
         - pecl install imagick-beta -y
         - docker-php-ext-enable imagick
 
-        - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        - chmod +x wp-cli.phar
-        - mv wp-cli.phar /usr/local/bin/wp
-
         - mkdir -p "${TUGBOAT_ROOT}/build"
         - ln -snf "${TUGBOAT_ROOT}/build" "${DOCROOT}"
         - ln -snf "${TUGBOAT_ROOT}/.tugboat/.htaccess" "${DOCROOT}/.htaccess"
 
       update:
+        # Install the latest wp-cli
+        - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        - chmod +x wp-cli.phar
+        - mv wp-cli.phar /usr/local/bin/wp
+        # Install NodeJS version from nvmrc.
+        - curl -fsSL https://deb.nodesource.com/setup_$(cat .nvmrc).x | bash -
+        - apt-get install nodejs
+        # Run npm install
         - npm install
         - npm run build
         - rm -f $DOCROOT/wp-config.php
@@ -61,6 +66,21 @@ services:
         - wp --allow-root --path=$DOCROOT --url=2021.example.com plugin install wordpress-importer --activate
         - wp --allow-root --path=$DOCROOT --url=2021.example.com --authors=create import theme-preview.xml
         - wp --allow-root --path=$DOCROOT --url=2021.example.com theme install twentytwentyone --activate
+
+        - wp --path=$DOCROOT --allow-root site create --slug=2022 --title="Twenty Twenty-Two"
+        - wp --allow-root --path=$DOCROOT --url=2022.example.com plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2022.example.com --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2022.example.com theme install twentytwentytwo --activate
+
+        - wp --path=$DOCROOT --allow-root site create --slug=2023 --title="Twenty Twenty-Three"
+        - wp --allow-root --path=$DOCROOT --url=2023.example.com plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2023.example.com --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2023.example.com theme install twentytwentythree --activate
+
+        - wp --path=$DOCROOT --allow-root site create --slug=2024 --title="Twenty Twenty-Four"
+        - wp --allow-root --path=$DOCROOT --url=2024.example.com plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2024.example.com --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2024.example.com theme install twentytwentyfour --activate
 
         - apt-get clean
         - rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

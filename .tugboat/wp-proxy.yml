@@ -3,3 +3,6 @@ sites:
   example.com: ${TUGBOAT_DEFAULT_SERVICE_URL_HOST}
   2020.example.com: 2020-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
   2021.example.com: 2021-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2022.example.com: 2022-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2023.example.com: 2023-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2024.example.com: 2024-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
