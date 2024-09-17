@@ -10,7 +10,7 @@ services:
       - '2023'
       - '2024'
   php:
-    image: tugboatqa/php:8.3-apache
+    image: tugboatqa/php:8.2-apache
     checkout: true
     depends: mysql
     commands:
@@ -21,7 +21,7 @@ services:
         - a2enmod rewrite headers
 
         - docker-php-ext-install mysqli exif zip opcache
-        - pecl install imagick -y
+        - pecl install imagick-beta
         - docker-php-ext-enable imagick
 
         - mkdir -p "${TUGBOAT_ROOT}/build"
