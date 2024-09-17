@@ -53,7 +53,6 @@ services:
             --admin_password=admin
             --admin_email=admin@example.com
 
-        - wp --allow-root --path=$DOCROOT config set DOMAIN_CURRENT_SITE 2024.example.com
         - wp --allow-root --path=$DOCROOT config set ADMIN_COOKIE_PATH "/"
         - wp --allow-root --path=$DOCROOT config set COOKIE_DOMAIN ""
         - wp --allow-root --path=$DOCROOT config set COOKIEPATH ""
