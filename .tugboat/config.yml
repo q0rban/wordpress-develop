@@ -37,6 +37,8 @@ services:
         # Run npm install
         - npm install
         - npm run build
+
+        # Generate wp-config for Tugboat, with multisite.
         - rm -f $DOCROOT/wp-config.php
         - wp --allow-root --path=$DOCROOT config create
             --dbhost=mysql
@@ -50,6 +52,12 @@ services:
             --admin_user=admin
             --admin_password=admin
             --admin_email=admin@example.com
+
+        - wp --allow-root --path=$DOCROOT config set DOMAIN_CURRENT_SITE 2024.example.com
+        - wp --allow-root --path=$DOCROOT config set ADMIN_COOKIE_PATH "/"
+        - wp --allow-root --path=$DOCROOT config set COOKIE_DOMAIN ""
+        - wp --allow-root --path=$DOCROOT config set COOKIEPATH ""
+        - wp --allow-root --path=$DOCROOT config set SITECOOKIEPATH ""
 
         - wp --allow-root --path=$DOCROOT plugin install wordpress-importer --activate
         - curl -O https://raw.githubusercontent.com/WPTT/theme-test-data/master/theme-preview.xml
