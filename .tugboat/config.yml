@@ -47,46 +47,46 @@ services:
             --dbpass=tugboat
         - wp --allow-root --path=$DOCROOT core multisite-install
             --subdomains
-            --url=localhost
+            --url=example.org
             --title="WordPress Core"
             --admin_user=admin
             --admin_password=admin
-            --admin_email=admin@example.com
+            --admin_email=admin@example.org
 
         - wp --allow-root --path=$DOCROOT config set ADMIN_COOKIE_PATH "/"
         - wp --allow-root --path=$DOCROOT config set COOKIE_DOMAIN ""
         - wp --allow-root --path=$DOCROOT config set COOKIEPATH ""
         - wp --allow-root --path=$DOCROOT config set SITECOOKIEPATH ""
-        - wp --allow-root --path=$DOCROOT config set --raw DOMAIN_CURRENT_SITE "htmlentities( \$_SERVER['HTTP_HOST'] ?? 'localhost' )"
+        - wp --allow-root --path=$DOCROOT config set --raw DOMAIN_CURRENT_SITE "htmlentities( \$_SERVER['HTTP_HOST'] ?? 'example.org' )"
 
         - wp --allow-root --path=$DOCROOT plugin install wordpress-importer --activate
         - curl -O https://raw.githubusercontent.com/WPTT/theme-test-data/master/theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --authors=create --url=localhost import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --authors=create --url=example.org import theme-preview.xml
 
         - wp --path=$DOCROOT --allow-root site create --slug=2020 --title="Twenty Twenty"
-        - wp --allow-root --path=$DOCROOT --url=2020.localhost plugin install wordpress-importer --activate
-        - wp --allow-root --path=$DOCROOT --url=2020.localhost --authors=create import theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --url=2020.localhost theme install twentytwenty --activate
+        - wp --allow-root --path=$DOCROOT --url=2020.example.org plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2020.example.org --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2020.example.org theme install twentytwenty --activate
 
         - wp --path=$DOCROOT --allow-root site create --slug=2021 --title="Twenty Twenty-One"
-        - wp --allow-root --path=$DOCROOT --url=2021.localhost plugin install wordpress-importer --activate
-        - wp --allow-root --path=$DOCROOT --url=2021.localhost --authors=create import theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --url=2021.localhost theme install twentytwentyone --activate
+        - wp --allow-root --path=$DOCROOT --url=2021.example.org plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2021.example.org --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2021.example.org theme install twentytwentyone --activate
 
         - wp --path=$DOCROOT --allow-root site create --slug=2022 --title="Twenty Twenty-Two"
-        - wp --allow-root --path=$DOCROOT --url=2022.localhost plugin install wordpress-importer --activate
-        - wp --allow-root --path=$DOCROOT --url=2022.localhost --authors=create import theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --url=2022.localhost theme install twentytwentytwo --activate
+        - wp --allow-root --path=$DOCROOT --url=2022.example.org plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2022.example.org --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2022.example.org theme install twentytwentytwo --activate
 
         - wp --path=$DOCROOT --allow-root site create --slug=2023 --title="Twenty Twenty-Three"
-        - wp --allow-root --path=$DOCROOT --url=2023.localhost plugin install wordpress-importer --activate
-        - wp --allow-root --path=$DOCROOT --url=2023.localhost --authors=create import theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --url=2023.localhost theme install twentytwentythree --activate
+        - wp --allow-root --path=$DOCROOT --url=2023.example.org plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2023.example.org --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2023.example.org theme install twentytwentythree --activate
 
         - wp --path=$DOCROOT --allow-root site create --slug=2024 --title="Twenty Twenty-Four"
-        - wp --allow-root --path=$DOCROOT --url=2024.localhost plugin install wordpress-importer --activate
-        - wp --allow-root --path=$DOCROOT --url=2024.localhost --authors=create import theme-preview.xml
-        - wp --allow-root --path=$DOCROOT --url=2024.localhost theme install twentytwentyfour --activate
+        - wp --allow-root --path=$DOCROOT --url=2024.example.org plugin install wordpress-importer --activate
+        - wp --allow-root --path=$DOCROOT --url=2024.example.org --authors=create import theme-preview.xml
+        - wp --allow-root --path=$DOCROOT --url=2024.example.org theme install twentytwentyfour --activate
 
         - apt-get clean
         - rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

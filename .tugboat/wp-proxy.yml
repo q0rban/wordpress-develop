@@ -1,8 +1,8 @@
 backend_uri: http://php
 sites:
-  localhost: ${TUGBOAT_DEFAULT_SERVICE_URL_HOST}
-  2020.localhost: 2020-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
-  2021.localhost: 2021-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
-  2022.localhost: 2022-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
-  2023.localhost: 2023-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
-  2024.localhost: 2024-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  example.org: ${TUGBOAT_DEFAULT_SERVICE_URL_HOST}
+  2020.example.org: 2020-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2021.example.org: 2021-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2022.example.org: 2022-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2023.example.org: 2023-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
+  2024.example.org: 2024-${TUGBOAT_DEFAULT_SERVICE_TOKEN}.tugboatqa.com
