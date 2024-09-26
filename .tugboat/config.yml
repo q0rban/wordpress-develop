@@ -35,7 +35,7 @@ services:
         - curl -fsSL https://deb.nodesource.com/setup_$(cat .nvmrc).x | bash -
         - apt-get install nodejs
         # Run npm install
-        - npm install
+        - npm ci
         - npm run build
 
         # Generate wp-config for Tugboat, with multisite.
@@ -92,7 +92,7 @@ services:
         - rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
       build:
-        - npm install
+        - npm ci
         - npm run build
 
   mysql:
