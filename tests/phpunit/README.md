@@ -6,21 +6,23 @@ This documentation will assume you have a local development environment of your 
 
 ## Setup
 
-1. Check out the wordpress-develop repository
-
-       git clone git://develop.git.wordpress.org/ wordpress-develop
-       cd wordpress-develop
-
-2. Run `composer update --with-all-dependencies`
+1. Check out the [`wordpress-develop` repository](https://github.com/WordPress/wordpress-develop):
+	```
+	git clone git@github.com:WordPress/wordpress-develop.git
+	cd wordpress-develop
+	```
+2. Run `composer update --with-all-dependencies`.
 3. Create a clean MySQL database and user. **DO NOT USE AN EXISTING DATABASE** or you will lose data, guaranteed.
 4. Copy `wp-tests-config-sample.php` to `wp-tests-config.php`, edit it to include your testing database credentials.
 5. Run the tests from the repository root:
    - To execute a particular test:
-
-         $ vendor/bin/phpunit tests/phpunit/tests/test_case.php
+      ```
+      vendor/bin/phpunit tests/phpunit/tests/[test_case].php
+      ```
    - To execute all tests:
-
-         $ vendor/bin/phpunit
+      ```
+      vendor/bin/phpunit
+      ```
 
 ## Notes:
 
