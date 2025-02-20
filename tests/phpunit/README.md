@@ -2,7 +2,7 @@
 
 PHPUnit is the official testing framework chosen by the core team to test our PHP code.
 
-This documentation will assume you have a local development environment of your own choosing. For other testing workflows, such as Docker, see the [PHP: PHP Unit](https://make.wordpress.org/core/handbook/testing/automated-testing/phpunit/) handbook page.
+This documentation will assume you have a local development environment of your own choosing. For other testing workflows, such as Docker, see the [PHP: PHPUnit](https://make.wordpress.org/core/handbook/testing/automated-testing/phpunit/) handbook page.
 
 ## Setup
 
